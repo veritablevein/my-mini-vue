@@ -1,0 +1,4 @@
+dist
+*.html
+*.md
+pnpm-lock.yaml

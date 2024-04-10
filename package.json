@@ -1,0 +1,43 @@
+{
+  "name": "my-mini-vue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "check": "tsc --incremental --noEmit",
+    "lint": "eslint --ext .ts,.tsx,.vue,.js,.jsx src --fix",
+    "postinstall": "simple-git-hooks",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
+  },
+  "engines": {
+    "node": ">=18.12.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged && pnpm check",
+    "commit-msg": "node scripts/verify-commit.js"
+  },
+  "lint-staged": {
+    "*.{js,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "eslint --fix",
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.13.2",
+    "@types/node": "^20.12.7",
+    "@vitest/ui": "^1.4.0",
+    "eslint": "^9.0.0",
+    "lint-staged": "^15.2.2",
+    "picocolors": "^1.0.0",
+    "prettier": "^3.2.5",
+    "simple-git-hooks": "^2.11.1",
+    "typescript": "^5.4.4",
+    "vite": "^5.2.8",
+    "vitest": "^1.4.0"
+  }
+}
