@@ -1,9 +1,13 @@
-function sum(a, b) {
-  return a + b
-}
+import { reactive } from '../src/reactive'
 
-describe('sum', () => {
-  it('adds 1 + 2 to equal 3', () => {
-    expect(sum(1, 2)).toBe(3)
+describe('reactive', () => {
+  it('happy path', () => {
+    const origin = { age: 18 }
+    const observed = reactive(origin)
+    // proxy intercept origin object
+    expect(observed).not.toBe(origin)
+    // [[Get]]
+    expect(observed.age).toBe(18)
+    // [[Set]]
   })
 })
