@@ -1,7 +1,7 @@
 import { effect } from '../src/effect'
 import { reactive } from '../src/reactive'
 
-describe.skip('effect', () => {
+describe('effect', () => {
   it('happy path', () => {
     const user = reactive({ age: 18 })
 
