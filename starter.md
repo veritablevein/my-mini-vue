@@ -166,3 +166,21 @@ pnpm postinstall
 git add .
 git commit -m "chore: init"
 ```
+解决eslint和prettier冲突
+```bash
+# 安装eslint-config-prettier eslint-plugin-prettier
+pnpm add -Dw eslint-config-prettier eslint-plugin-prettier 
+```
+```js
+// eslint.config.js
+import antfu from '@antfu/eslint-config'
+
+export default antfu({
+  ignores: ['node_modules', 'dist', 'coverage'],
+  extends: ['plugin:prettier/recommended'],
+  plugins: ['prettier'],
+  rules: {
+    'prettier/prettier': 'error',
+  },
+})
+```
