@@ -45,7 +45,7 @@ export function track(target, key) {
 }
 
 export function trackEffect(deps) {
-  if (!deps.has(activeEffect)) {
+  if (activeEffect && !deps.has(activeEffect)) {
     deps.add(activeEffect)
     activeEffect.deps.push(deps)
   }
