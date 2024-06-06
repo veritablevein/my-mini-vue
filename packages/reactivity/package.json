@@ -2,12 +2,12 @@
   "name": "@my-mini-vue/reactivity",
   "version": "1.0.0",
   "description": "@my-mini-vue/reactivity",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@my-mini-vue/shared": "workspace:^1.0.0"
   }

@@ -1,17 +1,25 @@
 let activeEffect
+const targetMap = new WeakMap()
 class ReactiveEffect {
+  deps: any[] = []
   private _fn: any
   constructor(fn) {
     this._fn = fn
   }
 
   run() {
+    clearupEffect(this)
     activeEffect = this as any
     this._fn()
   }
 }
 
-const targetMap = new WeakMap()
+function clearupEffect(effect) {
+  effect.deps.forEach(deps => {
+    deps.delete(effect)
+  })
+  effect.deps.length = 0
+}
 
 export function effect(fn) {
   const _effect = new ReactiveEffect(fn)
@@ -19,7 +27,7 @@ export function effect(fn) {
   _effect.run()
 }
 
-export function trackEffect(target, key) {
+export function track(target, key) {
   // target -> key -> dep
   let depsMap = targetMap.get(target)
   if (!depsMap) {
@@ -27,17 +35,29 @@ export function trackEffect(target, key) {
     targetMap.set(target, depsMap)
   }
 
-  let dep = depsMap.get(key)
-  if (!dep) {
-    dep = new Set()
-    depsMap.set(key, dep)
+  let deps = depsMap.get(key)
+  if (!deps) {
+    deps = new Set()
+    depsMap.set(key, deps)
   }
 
-  dep.add(activeEffect)
+  trackEffect(deps)
 }
 
-export function triggerEffect(target, key) {
+export function trackEffect(deps) {
+  if (!deps.has(activeEffect)) {
+    deps.add(activeEffect)
+    activeEffect.deps.push(deps)
+  }
+}
+
+export function trigger(target, key) {
   const depsMap = targetMap.get(target)
-  const dep = depsMap.get(key)
-  for (const _effect of dep) _effect.run()
+  if (!depsMap) return
+  const deps = depsMap.get(key)
+  const depsCopy = new Set<any>(deps)
+  depsCopy &&
+    depsCopy.forEach(_effect => {
+      _effect.run()
+    })
 }

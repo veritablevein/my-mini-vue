@@ -2,10 +2,10 @@
   "name": "@my-mini-vue/shared",
   "version": "1.0.0",
   "description": "@my-mini-vue/shared",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  }
 }
